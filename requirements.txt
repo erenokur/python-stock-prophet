@@ -1,0 +1,7 @@
+Flask
+pandas-datareader
+yfinance
+requests
+pandas
+prophet
+matplotlib

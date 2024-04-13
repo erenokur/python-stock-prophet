@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "7770fea3-d876-4ff6-858f-9e8b69b30232",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://127.0.0.1:5000/forecast",
+    "url": "http://127.0.0.1:5000/forecast",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2024-04-13T21:40:20.621Z",
+    "modified": "2024-04-13T21:40:20.621Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{ \"ticker\": \"Petkim.is\"}",
+      "form": []
+    },
+    "tests": []
+  }
+]
