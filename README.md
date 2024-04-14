@@ -18,3 +18,15 @@ Need to use all packages updated to be sure of this you may use this command:
 ```
 pip install --upgrade --force-reinstall -r requirements.txt
 ```
+
+## Future Work
+
+1. User Authentication
+2. User portfolio page
+3. User portfolio stock prediction
+4. User portfolio stock price change mail notification
+5. Stock analysis will be done with another packages like LSTM, ARIMA, etc. to confirm the prediction of the stock price.
+6. Stock price prediction will be done with balance sheet, income statement, and cash flow statement data.
+7. Stock price prediction will be done with the news data.
+8. Stock price prediction will be done with the social media data.
+9. Stock price prediction will be done with the sentiment analysis data.
