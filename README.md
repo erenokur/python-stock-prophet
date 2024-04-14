@@ -30,3 +30,4 @@ pip install --upgrade --force-reinstall -r requirements.txt
 7. Stock price prediction will be done with the news data.
 8. Stock price prediction will be done with the social media data.
 9. Stock price prediction will be done with the sentiment analysis data.
+10. A front-end will be created for the user to interact with the program.
