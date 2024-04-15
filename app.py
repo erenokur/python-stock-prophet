@@ -7,6 +7,12 @@ app = Flask(__name__)
 
 @app.route('/forecast', methods=['GET'])
 def forecast():
+    """
+    Endpoint to generate and return a forecast chart for a given stock ticker symbol.
+
+    Returns:
+    flask.Response: Flask response containing the forecast chart as a PNG image.
+    """
     data = request.get_json()
     ticker = data.get('ticker', 'PETKM.IS')  
     model = stock_analysis.create_prophet_model(ticker)
@@ -16,6 +22,12 @@ def forecast():
 
 @app.route('/dataDatePeriod', methods=['GET'])
 def data_date_period():
+    """
+    Endpoint to fetch historical stock data for a given stock ticker symbol within a specified date range.
+
+    Returns:
+    flask.Response: Flask response containing historical stock data as JSON.
+    """
     data = request.get_json()
     ticker = data.get('ticker', 'PETKM.IS')  
 
@@ -32,6 +44,12 @@ def data_date_period():
 
 @app.route('/dataPeriod', methods=['GET'])
 def data_period():
+    """
+    Endpoint to fetch historical stock data for a given stock ticker symbol within a specified period.
+
+    Returns:
+    flask.Response: Flask response containing historical stock data as JSON.
+    """
     data = request.get_json()
     ticker = data.get('ticker', 'PETKM.IS')  
     period = data.get('period', 'max')
@@ -44,5 +62,4 @@ def data_period():
 
 
 if __name__ == "__main__":
-  app.run()
-
+    app.run()
