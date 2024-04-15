@@ -12,8 +12,7 @@ This is a simple stock prediction program that uses the Prophet library to predi
 pip install -r requirements.txt
 ```
 
-note:
-Need to use all packages updated to be sure of this you may use this command:
+**Note:** It's recommended to update all packages to ensure compatibility by using the following command:
 
 ```
 pip install --upgrade --force-reinstall -r requirements.txt
@@ -21,13 +20,13 @@ pip install --upgrade --force-reinstall -r requirements.txt
 
 ## Future Work
 
-1. User Authentication
-2. User portfolio page
-3. User portfolio stock prediction
-4. User portfolio stock price change mail notification
-5. Stock analysis will be done with another packages like LSTM, ARIMA, etc. to confirm the prediction of the stock price.
-6. Stock price prediction will be done with balance sheet, income statement, and cash flow statement data.
-7. Stock price prediction will be done with the news data.
-8. Stock price prediction will be done with the social media data.
-9. Stock price prediction will be done with the sentiment analysis data.
-10. A front-end will be created for the user to interact with the program.
+1. **User Authentication:** Implement user authentication to secure user data and interactions.
+2. **User Portfolio Page:** Create a user-friendly portfolio page for users to manage their stocks.
+3. **User Portfolio Stock Prediction:** Enable users to predict the future prices of stocks in their portfolio.
+4. **User Portfolio Stock Price Change Mail Notification:** Notify users via email about changes in the prices of stocks in their portfolio.
+5. **Advanced Stock Analysis:** Utilize additional techniques such as LSTM, ARIMA, etc., to enhance stock price predictions.
+6. **Financial Statement Analysis:** Incorporate balance sheet, income statement, and cash flow statement data for more accurate predictions.
+7. **News Data Analysis:** Integrate news data analysis for better understanding of stock price movements.
+8. **Social Media Data Analysis:** Analyze social media data to gauge sentiment and its impact on stock prices.
+9. **Sentiment Analysis:** Perform sentiment analysis on news articles and social media data to predict stock price trends.
+10. **Front-End Development:** Develop a user-friendly front-end interface for users to interact with the program seamlessly.
