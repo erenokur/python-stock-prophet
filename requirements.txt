@@ -5,3 +5,9 @@ requests
 pandas
 prophet
 matplotlib
+python-dotenv
+Flask-Migrate
+SQLAlchemy
+Flask-WTF
+werkzeug
+flask_jwt_extended

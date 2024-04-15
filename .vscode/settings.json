@@ -1,3 +1,13 @@
 {
-  "cSpell.words": ["datareader", "yfinance"]
+  "cSpell.words": [
+    "changepoint",
+    "dataframe",
+    "datareader",
+    "dotenv",
+    "sqlalchemy",
+    "werkzeug",
+    "wtforms",
+    "yfinance",
+    "jsonify"
+  ]
 }

@@ -18,6 +18,14 @@ pip install -r requirements.txt
 pip install --upgrade --force-reinstall -r requirements.txt
 ```
 
+For migrations:
+
+```bash
+flask db init
+flask db migrate
+flask db upgrade
+```
+
 ## Future Work
 
 1. **User Authentication:** Implement user authentication to secure user data and interactions.
