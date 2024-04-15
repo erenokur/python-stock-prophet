@@ -26,6 +26,14 @@ flask db migrate
 flask db upgrade
 ```
 
+you also need to create a `.env` file with the following variables:
+
+```bash
+SECRET_KEY=your-secret-key
+DATABASE_URL=sqlite:///app.db
+EXTERNAL_API_KEY=your-api-key
+```
+
 ## Future Work
 
 1. **User Authentication:** Implement user authentication to secure user data and interactions.
