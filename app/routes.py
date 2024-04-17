@@ -1,3 +1,4 @@
+import pandas as pd
 from app import app, db
 from flask import Blueprint, request, Response, jsonify, redirect, url_for, flash
 from datetime import datetime, timedelta
@@ -10,6 +11,8 @@ from flask_jwt_extended import create_access_token
 
 from app.models import User
 import app.stock_analysis.technical_analysis as technical_analyses
+
+import app.stock_analysis.balance_sheet_analysis as balance_sheet_analysis
 
 api_routes = Blueprint('api_routes', __name__)
 
@@ -41,6 +44,7 @@ def register():
 
     access_token = create_access_token(identity=username)
     return jsonify(access_token=access_token), 201
+
 @api_routes.route('/forecast', methods=['GET'])
 def forecast():
     """
@@ -54,7 +58,6 @@ def forecast():
     model = technical_analyses.create_prophet_model(ticker)
     forecast = technical_analyses.make_forecast(model, 365)
     return technical_analyses.make_forecast_chart(model, forecast)
-
 
 @api_routes.route('/dataDatePeriod', methods=['GET'])
 def data_date_period():
@@ -96,3 +99,26 @@ def data_period():
     # Create a response with the JSON data
     return Response(stock_value_json, mimetype='application/json')
 
+@api_routes.route('/getStockBalanceSheet', methods=['GET'])
+def get_stock_balance_sheet():
+    """
+    Fetches the balance sheet data for a given stock ticker symbol.
+
+    Args:
+    ticker (str): The stock ticker symbol to fetch balance sheet data for.
+
+    Returns:
+    pandas.DataFrame: The balance sheet data for the given stock ticker symbol.
+    """
+    data = request.get_json()
+    ticker = data.get('ticker', 'PETKM.IS')  
+    # Fetch balance sheet data
+    stock_balance_sheet = balance_sheet_analysis.get_stock_balance_sheet(ticker)
+    stock_balance_sheet_dict = stock_balance_sheet.to_dict()
+    # Convert Timestamp objects in keys to strings
+    stock_balance_sheet_dict = {str(key): value for key, value in stock_balance_sheet_dict.items()}
+    # Structure the dictionary
+    structured_dict = {'stock_quarters': stock_balance_sheet_dict}
+    structured_json = json.dumps(structured_dict)
+
+    return Response(structured_json, mimetype='application/json')
