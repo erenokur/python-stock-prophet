@@ -4,10 +4,11 @@
     "dataframe",
     "datareader",
     "dotenv",
+    "financials",
+    "jsonify",
     "sqlalchemy",
     "werkzeug",
     "wtforms",
-    "yfinance",
-    "jsonify"
+    "yfinance"
   ]
 }
