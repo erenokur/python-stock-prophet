@@ -56,19 +56,16 @@ def fundamental_analysis(ticker):
     str: The result of the fundamental analysis.
     """
     # Fetch necessary data
-    balance_sheet = get_stock_balance_sheet(ticker)
-    cash_flow = get_stock_cash_flow(ticker)
-    income_statement = get_stock_income_statement(ticker)
     ticker_obj = yf.Ticker(ticker)
 
     results = []
 
     # Iterate over all quarters
-    for i in range(balance_sheet.shape[1]):
+    for i in range(ticker_obj.balance_sheet.shape[1]):
         # Select the data for the current quarter
-        bs_quarter = balance_sheet.iloc[:, i]
-        cf_quarter = cash_flow.iloc[:, i]
-        is_quarter = income_statement.iloc[:, i]
+        bs_quarter = ticker_obj.balance_sheet.iloc[:, i]
+        cf_quarter = ticker_obj.cash_flow.iloc[:, i]
+        is_quarter = ticker_obj.financials.iloc[:, i]
 
         # Calculate ratios
         net_income = is_quarter.loc['Net Income']
