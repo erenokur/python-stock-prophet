@@ -45,7 +45,20 @@ def get_stock_income_statement(ticker):
 
     return income_statement
 
-def fundamental_analysis(ticker):
+def get_all_stock_data(ticker):
+    '''
+    Fetches all the data for a given stock ticker symbol.
+    
+    Args:
+    ticker (str): The stock ticker symbol.
+    
+    Returns:
+    pandas.DataFrame: The balance sheet, cash flow, and income statement data.
+    '''
+    # Fetch all data
+    return yf.Ticker(ticker)
+
+def evaluate_stock_value_in_industry(ticker):
     """
     Performs fundamental analysis on a given stock ticker symbol.
 
@@ -68,18 +81,11 @@ def fundamental_analysis(ticker):
         is_quarter = ticker_obj.financials.iloc[:, i]
 
         # Calculate ratios
-        net_income = is_quarter.loc['Net Income']
-        outstanding_shares = ticker_obj.info['sharesOutstanding']
-        earnings_per_share = net_income / outstanding_shares
-        pe_ratio = ticker_obj.info['currentPrice'] / earnings_per_share
+        pe_ratio = ticker_obj.info['currentPrice'] / is_quarter.loc['Basic EPS']
 
         total_liabilities = bs_quarter.loc['Current Liabilities'] + bs_quarter.loc['Total Non Current Liabilities Net Minority Interest']
-
         total_equity = bs_quarter.loc['Common Stock Equity'] + bs_quarter.loc['Retained Earnings']
-
         pb_ratio = ticker_obj.info['currentPrice'] / (bs_quarter.loc['Total Assets'] - total_liabilities) / total_equity
-
-        free_cash_flow = cf_quarter.loc['Free Cash Flow']
 
         # Compare with industry averages
         industry_pe = ticker_obj.info['trailingPE']
