@@ -1,6 +1,7 @@
 from flask import Blueprint, request, Response, abort
 from yfinance.exceptions import YFNotImplementedError
 import pandas as pd
+import numpy as np
 import json
 
 from app.responses import bad_request_ticker_response
@@ -123,34 +124,20 @@ def get_all_stock_data():
             continue
         value = getattr(stock_data, prop)
         if isinstance(value, pd.DataFrame):
-            data[handle_timestamp(prop)] = {handle_timestamp(k): handle_timestamp(v) for k, v in value.applymap(handle_timestamp).to_dict().items()}
+            data[prop] = value.to_dict()
         elif isinstance(value, dict):
-            data[handle_timestamp(prop)] = {handle_timestamp(k): handle_timestamp(v) for k, v in value.items()}
+            data[prop] = value
         elif isinstance(value, pd.Series):
-            data[handle_timestamp(prop)] = {handle_timestamp(k): handle_timestamp(v) for k, v in value.map(handle_timestamp).to_dict().items()}
+            data[prop] = value.to_dict()
         else:
-            value = handle_timestamp(value)
-            if isinstance(value, (str, int, float, bool, type(None))):
-                data[handle_timestamp(prop)] = value
+            data[prop] = str(value)
         
-    return json.dumps(data, default=handle_timestamp)
+    return json.dumps(to_json(data))
 
-    json_string = json.dumps(stock_data.info)
-    return Response(json_string, mimetype='application/json')
-    stock_data_info = stock_data.info.to_dict()
-    # stock_data_dict = stock_data.to_dict()
-    # # Convert Timestamp objects in keys to strings
-    # stock_data_dict = {str(key): value for key, value in stock_data_dict.items()}
-    # # Structure the dictionary
-    # structured_dict = {'stock_quarters': stock_data_dict}
-    structured_json = json.dumps(stock_data_info)
-
-    return Response(structured_json, mimetype='application/json')
-
-def handle_timestamp(obj):
-    if isinstance(obj, pd.Timestamp):
-        return obj.isoformat()
-    return obj
+def to_json(data):
+    if data is None or isinstance(data, (bool, int, tuple, range, str, list)):
+        return data
+    return str(data)
 
 @fundamental_analysis_routes.route('/evaluateStockValueInIndustry', methods=['GET'])
 def evaluate_stock_value_in_industry():
