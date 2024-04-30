@@ -2,6 +2,7 @@ from flask import Blueprint, request, Response, abort
 from yfinance.exceptions import YFNotImplementedError
 import pandas as pd
 import numpy as np
+import datetime
 import json
 
 from app.responses import bad_request_ticker_response
@@ -115,7 +116,8 @@ def get_all_stock_data():
         'revenue_forecasts',
         'shares',
         'sustainability',
-        'trend_details'
+        'trend_details',
+        'fast_info'
         ]
 
     data = {}   
@@ -124,16 +126,24 @@ def get_all_stock_data():
             continue
         value = getattr(stock_data, prop)
         if isinstance(value, pd.DataFrame):
-            data[prop] = value.to_dict()
+            data[convert_timestamp_keys(prop)] = convert_timestamp_keys(value.to_dict())
         elif isinstance(value, dict):
-            data[prop] = value
+            data[convert_timestamp_keys(prop)] = convert_timestamp_keys(value)
         elif isinstance(value, pd.Series):
-            data[prop] = value.to_dict()
+            data[convert_timestamp_keys(prop)] = convert_timestamp_keys(value.to_dict())
         else:
-            data[prop] = str(value)
+            data[convert_timestamp_keys(prop)] = value
         
-    return json.dumps(to_json(data))
+    return json.dumps(data)
 
+def convert_timestamp_keys(obj):
+    if isinstance(obj, dict):
+        return {k.isoformat() if isinstance(k, pd.Timestamp) else k: convert_timestamp_keys(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_timestamp_keys(elem) for elem in obj]
+    else:
+        return obj
+    
 def to_json(data):
     if data is None or isinstance(data, (bool, int, tuple, range, str, list)):
         return data
